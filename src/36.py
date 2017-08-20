@@ -1,21 +1,28 @@
-def prime_decomposition(N):
-    M = N
+def twice_decomposition(N):
+    if N in [1, 2, 3]:
+        return []
     i = 2
-    table =[]
+    cnt = 0
+    lst = []
     while i * i <= N:
-        while M % i == 0:
-            M /= i
-            table.append(int(i))
+        while N % i == 0:
+            if cnt >= 2:
+                lst.append(N)
+                return lst
+            N /= i
+            lst.append(i)
+            cnt += 1
         i += 1
-    if M > 1:
-        table.append(int(M))
-    return table
+    return lst
 
 
 if __name__ == '__main__':
     N = int(input())
-    li = prime_decomposition(N)
-    if len(li) <= 2:
+    ls = twice_decomposition(N)
+    try:
+        if ls[0] * ls[1] == N:
+            print('NO')
+        else:
+            print('YES')
+    except IndexError:
         print('NO')
-    else:
-        print('YES')
